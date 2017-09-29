@@ -12,6 +12,8 @@
 		79280E381F7D08E400B2761D /* Collider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79280E361F7D08E400B2761D /* Collider.cpp */; };
 		79280E3B1F7D19D600B2761D /* LevelMapCollider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79280E391F7D19D600B2761D /* LevelMapCollider.cpp */; };
 		79280E3F1F7D417700B2761D /* BoxCollider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79280E3D1F7D417700B2761D /* BoxCollider.cpp */; };
+		79280E441F7D5DB500B2761D /* Dispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79280E421F7D5DB500B2761D /* Dispatcher.cpp */; };
+		79280E471F7D5DF500B2761D /* Bomb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79280E451F7D5DF500B2761D /* Bomb.cpp */; };
 		79677D341F7BEB7E006F6F19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79677D331F7BEB7E006F6F19 /* Assets.xcassets */; };
 		79677D421F7BEB7F006F6F19 /* bombermanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 79677D411F7BEB7F006F6F19 /* bombermanTests.m */; };
 		79677D4D1F7BEB7F006F6F19 /* bombermanUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 79677D4C1F7BEB7F006F6F19 /* bombermanUITests.m */; };
@@ -34,6 +36,7 @@
 		79677D991F7C0D7D006F6F19 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79677D971F7C0D7D006F6F19 /* Player.cpp */; };
 		79677D9C1F7C1D53006F6F19 /* Vector2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79677D9A1F7C1D53006F6F19 /* Vector2.cpp */; };
 		79677D9F1F7C1EC0006F6F19 /* ScalarMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79677D9D1F7C1EC0006F6F19 /* ScalarMath.cpp */; };
+		79B7D3651F7E3B9C00B0AAE6 /* BombFragment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79B7D3631F7E3B9C00B0AAE6 /* BombFragment.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +88,10 @@
 		79280E3A1F7D19D600B2761D /* LevelMapCollider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMapCollider.h; sourceTree = "<group>"; };
 		79280E3D1F7D417700B2761D /* BoxCollider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BoxCollider.cpp; sourceTree = "<group>"; };
 		79280E3E1F7D417700B2761D /* BoxCollider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoxCollider.h; sourceTree = "<group>"; };
+		79280E421F7D5DB500B2761D /* Dispatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Dispatcher.cpp; sourceTree = "<group>"; };
+		79280E431F7D5DB500B2761D /* Dispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dispatcher.h; sourceTree = "<group>"; };
+		79280E451F7D5DF500B2761D /* Bomb.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bomb.cpp; sourceTree = "<group>"; };
+		79280E461F7D5DF500B2761D /* Bomb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bomb.h; sourceTree = "<group>"; };
 		79677D241F7BEB7E006F6F19 /* bomberman.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bomberman.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79677D331F7BEB7E006F6F19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		79677D381F7BEB7E006F6F19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -121,6 +128,8 @@
 		79677D9B1F7C1D53006F6F19 /* Vector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector2.h; sourceTree = "<group>"; };
 		79677D9D1F7C1EC0006F6F19 /* ScalarMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScalarMath.cpp; sourceTree = "<group>"; };
 		79677D9E1F7C1EC0006F6F19 /* ScalarMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScalarMath.h; sourceTree = "<group>"; };
+		79B7D3631F7E3B9C00B0AAE6 /* BombFragment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BombFragment.cpp; sourceTree = "<group>"; };
+		79B7D3641F7E3B9C00B0AAE6 /* BombFragment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BombFragment.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +252,8 @@
 		79677D851F7BF540006F6F19 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				79280E421F7D5DB500B2761D /* Dispatcher.cpp */,
+				79280E431F7D5DB500B2761D /* Dispatcher.h */,
 				79677D861F7BF550006F6F19 /* Game.cpp */,
 				79677D871F7BF550006F6F19 /* Game.h */,
 				79677D8C1F7BF969006F6F19 /* LevelMap.cpp */,
@@ -265,6 +276,10 @@
 				79280E3D1F7D417700B2761D /* BoxCollider.cpp */,
 				79280E3E1F7D417700B2761D /* BoxCollider.h */,
 				79280E3A1F7D19D600B2761D /* LevelMapCollider.h */,
+				79280E451F7D5DF500B2761D /* Bomb.cpp */,
+				79280E461F7D5DF500B2761D /* Bomb.h */,
+				79B7D3631F7E3B9C00B0AAE6 /* BombFragment.cpp */,
+				79B7D3641F7E3B9C00B0AAE6 /* BombFragment.h */,
 			);
 			name = src;
 			path = ../../src;
@@ -441,7 +456,10 @@
 				79677D881F7BF550006F6F19 /* Game.cpp in Sources */,
 				79280E2E1F7CF11100B2761D /* Joystick.cpp in Sources */,
 				79280E3B1F7D19D600B2761D /* LevelMapCollider.cpp in Sources */,
+				79280E471F7D5DF500B2761D /* Bomb.cpp in Sources */,
 				79280E3F1F7D417700B2761D /* BoxCollider.cpp in Sources */,
+				79B7D3651F7E3B9C00B0AAE6 /* BombFragment.cpp in Sources */,
+				79280E441F7D5DB500B2761D /* Dispatcher.cpp in Sources */,
 				79677D951F7BFF15006F6F19 /* Utils.cpp in Sources */,
 				79280E381F7D08E400B2761D /* Collider.cpp in Sources */,
 				79677D991F7C0D7D006F6F19 /* Player.cpp in Sources */,

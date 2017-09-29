@@ -20,8 +20,13 @@ bool Collider::setPosition(const Vector2& new_position)
     if(checkCollisions())
     {
         _position = tmp_position;
-        return true;
+        return false;
     }
+    return true;
+}
+
+bool Collider::containPoint(float x, float y) const
+{
     return false;
 }
 

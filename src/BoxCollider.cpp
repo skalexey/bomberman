@@ -17,6 +17,11 @@ BoxCollider::BoxCollider()
     
 }
 
+Vector2 BoxCollider::getSize() const
+{
+    return Vector2(_w, _h);
+}
+
 BoxCollider::BoxCollider(float x, float y, float w, float h)
 : Collider()
 , _w(w)
@@ -65,6 +70,18 @@ bool BoxCollider::check(const Collider& collider2) const
         {
             return false;
         }
+    }
+    BoxCollider const* collider2_box = dynamic_cast<BoxCollider const*>(&collider2);
+    if(collider2_box)
+    {
+        float w2_1 = _w / 2;
+        float h2_1 = _h / 2;
+        Vector2 collider_2_size = collider2_box->getSize();
+        float w2_2 = collider_2_size.x / 2;
+        float h2_2 = collider_2_size.y / 2;
+        Vector2 distance = getPosition() - collider2.getPosition();
+        return fabs(distance.x) < w2_1 + w2_2 && fabs(distance.y) < h2_1 + h2_2;
+        
     }
     return false;
 }

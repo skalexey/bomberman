@@ -17,9 +17,8 @@ public:
     BoxCollider();
     BoxCollider(float x, float y, float w, float h);
     bool check(const Collider& collider2) const;
+    Vector2 getSize() const;
 private:
-    float _x;
-    float _y;
     float _w;
     float _h;
 };

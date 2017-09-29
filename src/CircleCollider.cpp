@@ -22,6 +22,13 @@ float CircleCollider::getSize() const
     return _size;
 }
 
+bool CircleCollider::containPoint(float x, float y) const
+{
+    Vector2 point_position(x, y);
+    Vector2 distance = point_position - _position;
+    return distance.sqlength() <= _size_squared;
+}
+
 bool CircleCollider::check(const Collider& collider2) const
 {
     CircleCollider const* collider2_circle = dynamic_cast<CircleCollider const*>(&collider2);

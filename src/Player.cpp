@@ -11,9 +11,11 @@
 #include "SDL.h"
 #include "Player.h"
 #include "LevelMap.h"
+#include "Dispatcher.h"
 
 Player::Player()
 : _collider(size.x * block_size / 2)
+, _bomb_power(3)
 {
     
 }
@@ -45,13 +47,23 @@ bool Player::setPosition(const Vector2& new_position)
     return _collider.setPosition(new_position);
 }
 
+Bomb* Player::putBomb()
+{
+    Bomb* bomb = new Bomb(_bomb_power);
+    Dispatcher::instance().runAfter([=]()
+    {
+        bomb->detonate();
+    }, 2000);
+    bomb->setPosition(getPosition());
+    return bomb;
+}
+
 Collider& Player::getCollider()
 {
     return _collider;
 }
 
-
-void Player::move(const Vector2& direction, const LevelMap& level_map, float dt)
+void Player::move(const Vector2& direction, float dt)
 {
     Vector2 rounded_direction = direction;
     rounded_direction.normalize();
@@ -61,7 +73,6 @@ void Player::move(const Vector2& direction, const LevelMap& level_map, float dt)
     Vector2 new_position = current_position + rounded_direction;
     Vector2 new_position_x = {new_position.x, current_position.y};
     Vector2 new_position_y = {current_position.x, new_position.y};
-//    const LevelMapCollider& level_map_collider = level_map.getCollider();
     if(!setPosition(new_position_x))
     {
         setPosition(new_position_y);
@@ -70,7 +81,5 @@ void Player::move(const Vector2& direction, const LevelMap& level_map, float dt)
     {
         setPosition(new_position);
     }
-    
-    
 }
 

@@ -6,17 +6,22 @@
 //  Copyright © 2017 Alexey Skorokhodov. All rights reserved.
 //
 
-#include "LevelMapCollider.h"
 #include "LevelMap.h"
+#include "LevelMapCollider.h"
 
-LevelMapCollider::LevelMapCollider()
+LevelMapCollider::LevelMapCollider(LevelMap const* level_map, FieldBlock block_type)
 : Collider()
 , _level_map(nullptr)
 {
-    
+    init(level_map, block_type);
 }
 
-void LevelMapCollider::init(LevelMap const* level_map)
+void LevelMapCollider::removeBlockCollider(FieldBlock* block)
+{
+    _blocks_colliders.erase(block);
+}
+
+void LevelMapCollider::init(LevelMap const* level_map, FieldBlock block_type)
 {
     const LevelMap::TLevelMapField& field = level_map->getField();
     for(int y = 0; y < field.size(); y++)
@@ -25,9 +30,9 @@ void LevelMapCollider::init(LevelMap const* level_map)
         for(int x = 0; x < row_in_map.size(); x++)
         {
             const FieldBlock& block = row_in_map[x];
-            if(block == BLOCK_BRICK || block == BLOCK_CONCRETE)
+            if((block_type == BLOCK_NONE && (block == BLOCK_BRICK || block == BLOCK_CONCRETE)) || (block_type == block && block_type != BLOCK_NONE))
             {
-                _blocks_colliders[(long)&block] = BoxCollider((x + 0.5f) * block_size, (y + 0.5f) * block_size, block_size, block_size);
+                _blocks_colliders[&block] = BoxCollider((x + 0.5f) * block_size, (y + 0.5f) * block_size, block_size, block_size);
             }
         }
     }

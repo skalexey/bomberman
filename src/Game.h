@@ -12,10 +12,12 @@
 #define SCREEN_WIDTH 480
 #define SCREEN_HEIGHT 320
 
+#include <set>
 #include "SDL.h"
 #include "LevelMap.h"
 #include "Player.h"
 #include "Joystick.h"
+#include "Bomb.h"
 
 class Game
 {
@@ -30,6 +32,7 @@ private:
     LevelMap _level_map;
     Player _player;
     Joystick _joystick;
+    std::set<Bomb*> _bombs;
 };
 
 #endif /* Game_h */
