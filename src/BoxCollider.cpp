@@ -22,6 +22,13 @@ Vector2 BoxCollider::getSize() const
     return Vector2(_w, _h);
 }
 
+bool BoxCollider::containPoint(int x, int y) const
+{
+    float x_distance = fabs(x - _position.x);
+    float y_distance = fabs(y - _position.y);
+    return x_distance <= _w / 2 && y_distance <= _h / 2;
+}
+
 BoxCollider::BoxCollider(float x, float y, float w, float h)
 : Collider()
 , _w(w)

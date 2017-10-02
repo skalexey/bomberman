@@ -37,6 +37,13 @@
 		79677D9C1F7C1D53006F6F19 /* Vector2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79677D9A1F7C1D53006F6F19 /* Vector2.cpp */; };
 		79677D9F1F7C1EC0006F6F19 /* ScalarMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79677D9D1F7C1EC0006F6F19 /* ScalarMath.cpp */; };
 		79B7D3651F7E3B9C00B0AAE6 /* BombFragment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79B7D3631F7E3B9C00B0AAE6 /* BombFragment.cpp */; };
+		79B7D36A1F7E646E00B0AAE6 /* Enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79B7D3681F7E646E00B0AAE6 /* Enemy.cpp */; };
+		79B7D3701F7E675300B0AAE6 /* EnemyWandering.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79B7D36E1F7E675300B0AAE6 /* EnemyWandering.cpp */; };
+		79B7D3731F7E678500B0AAE6 /* EnemyChasing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79B7D3711F7E678500B0AAE6 /* EnemyChasing.cpp */; };
+		79B7D3791F7EAEAA00B0AAE6 /* PathFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79B7D3771F7EAEAA00B0AAE6 /* PathFinder.cpp */; };
+		79EE6AD61F824CB2003C78F9 /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79EE6AD41F824CB2003C78F9 /* Color.cpp */; };
+		79EE6ADB1F824D80003C78F9 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79EE6AD91F824D80003C78F9 /* Button.cpp */; };
+		79EE6ADE1F824E23003C78F9 /* Rect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79EE6ADC1F824E23003C78F9 /* Rect.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +137,20 @@
 		79677D9E1F7C1EC0006F6F19 /* ScalarMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScalarMath.h; sourceTree = "<group>"; };
 		79B7D3631F7E3B9C00B0AAE6 /* BombFragment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BombFragment.cpp; sourceTree = "<group>"; };
 		79B7D3641F7E3B9C00B0AAE6 /* BombFragment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BombFragment.h; sourceTree = "<group>"; };
+		79B7D3681F7E646E00B0AAE6 /* Enemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Enemy.cpp; sourceTree = "<group>"; };
+		79B7D3691F7E646E00B0AAE6 /* Enemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enemy.h; sourceTree = "<group>"; };
+		79B7D36E1F7E675300B0AAE6 /* EnemyWandering.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EnemyWandering.cpp; sourceTree = "<group>"; };
+		79B7D36F1F7E675300B0AAE6 /* EnemyWandering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnemyWandering.h; sourceTree = "<group>"; };
+		79B7D3711F7E678500B0AAE6 /* EnemyChasing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EnemyChasing.cpp; sourceTree = "<group>"; };
+		79B7D3721F7E678500B0AAE6 /* EnemyChasing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnemyChasing.h; sourceTree = "<group>"; };
+		79B7D3771F7EAEAA00B0AAE6 /* PathFinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PathFinder.cpp; sourceTree = "<group>"; };
+		79B7D3781F7EAEAA00B0AAE6 /* PathFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathFinder.h; sourceTree = "<group>"; };
+		79EE6AD41F824CB2003C78F9 /* Color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Color.cpp; sourceTree = "<group>"; };
+		79EE6AD51F824CB2003C78F9 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
+		79EE6AD91F824D80003C78F9 /* Button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Button.cpp; sourceTree = "<group>"; };
+		79EE6ADA1F824D80003C78F9 /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Button.h; sourceTree = "<group>"; };
+		79EE6ADC1F824E23003C78F9 /* Rect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rect.cpp; sourceTree = "<group>"; };
+		79EE6ADD1F824E23003C78F9 /* Rect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rect.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,6 +301,20 @@
 				79280E461F7D5DF500B2761D /* Bomb.h */,
 				79B7D3631F7E3B9C00B0AAE6 /* BombFragment.cpp */,
 				79B7D3641F7E3B9C00B0AAE6 /* BombFragment.h */,
+				79B7D3681F7E646E00B0AAE6 /* Enemy.cpp */,
+				79B7D3691F7E646E00B0AAE6 /* Enemy.h */,
+				79B7D36E1F7E675300B0AAE6 /* EnemyWandering.cpp */,
+				79B7D36F1F7E675300B0AAE6 /* EnemyWandering.h */,
+				79B7D3711F7E678500B0AAE6 /* EnemyChasing.cpp */,
+				79B7D3771F7EAEAA00B0AAE6 /* PathFinder.cpp */,
+				79B7D3781F7EAEAA00B0AAE6 /* PathFinder.h */,
+				79B7D3721F7E678500B0AAE6 /* EnemyChasing.h */,
+				79EE6AD41F824CB2003C78F9 /* Color.cpp */,
+				79EE6AD51F824CB2003C78F9 /* Color.h */,
+				79EE6AD91F824D80003C78F9 /* Button.cpp */,
+				79EE6ADA1F824D80003C78F9 /* Button.h */,
+				79EE6ADC1F824E23003C78F9 /* Rect.cpp */,
+				79EE6ADD1F824E23003C78F9 /* Rect.h */,
 			);
 			name = src;
 			path = ../../src;
@@ -453,17 +488,24 @@
 				79677D9C1F7C1D53006F6F19 /* Vector2.cpp in Sources */,
 				79677D8E1F7BF969006F6F19 /* LevelMap.cpp in Sources */,
 				79677D9F1F7C1EC0006F6F19 /* ScalarMath.cpp in Sources */,
+				79B7D3791F7EAEAA00B0AAE6 /* PathFinder.cpp in Sources */,
+				79EE6ADE1F824E23003C78F9 /* Rect.cpp in Sources */,
 				79677D881F7BF550006F6F19 /* Game.cpp in Sources */,
 				79280E2E1F7CF11100B2761D /* Joystick.cpp in Sources */,
 				79280E3B1F7D19D600B2761D /* LevelMapCollider.cpp in Sources */,
 				79280E471F7D5DF500B2761D /* Bomb.cpp in Sources */,
+				79B7D3731F7E678500B0AAE6 /* EnemyChasing.cpp in Sources */,
+				79B7D36A1F7E646E00B0AAE6 /* Enemy.cpp in Sources */,
 				79280E3F1F7D417700B2761D /* BoxCollider.cpp in Sources */,
 				79B7D3651F7E3B9C00B0AAE6 /* BombFragment.cpp in Sources */,
 				79280E441F7D5DB500B2761D /* Dispatcher.cpp in Sources */,
 				79677D951F7BFF15006F6F19 /* Utils.cpp in Sources */,
 				79280E381F7D08E400B2761D /* Collider.cpp in Sources */,
 				79677D991F7C0D7D006F6F19 /* Player.cpp in Sources */,
+				79EE6ADB1F824D80003C78F9 /* Button.cpp in Sources */,
+				79EE6AD61F824CB2003C78F9 /* Color.cpp in Sources */,
 				79280E351F7D089400B2761D /* CircleCollider.cpp in Sources */,
+				79B7D3701F7E675300B0AAE6 /* EnemyWandering.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -25,3 +25,15 @@ const BoxCollider& BombFragment::getCollider() const
 {
     return _collider;
 }
+
+void BombFragment::render(SDL_Renderer* renderer)
+{
+    const Point& field_position = getFieldPosition();
+    SDL_Rect sdl_block;
+    sdl_block.x = field_position.x * block_size;
+    sdl_block.y = field_position.y * block_size;
+    sdl_block.h = block_size;
+    sdl_block.w = block_size;
+    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+    SDL_RenderFillRect(renderer, &sdl_block);
+}

@@ -30,7 +30,7 @@ int Bomb::getPower() const
     return _power;
 }
 
-void Bomb::render(SDL_Renderer* renderer)
+void Bomb::render(SDL_Renderer* renderer) const
 {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_Rect sdl_bomb;

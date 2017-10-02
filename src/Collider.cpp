@@ -25,7 +25,7 @@ bool Collider::setPosition(const Vector2& new_position)
     return true;
 }
 
-bool Collider::containPoint(float x, float y) const
+bool Collider::containPoint(int x, int y) const
 {
     return false;
 }

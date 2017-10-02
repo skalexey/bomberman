@@ -21,6 +21,37 @@ LevelMap::LevelMap()
     _brick_collider = new LevelMapCollider(this, BLOCK_BRICK);
 }
 
+void LevelMap::addEnemy(Enemy* enemy)
+{
+    _enemies.insert(enemy);
+}
+
+Point LevelMap::findRandomFreePosition()
+{
+    std::vector<Point> free_positions;
+    for(int y = 0; y < _level_size_y; y++)
+    {
+        std::vector<FieldBlock> row = _field[y];
+        for(int x = 0; x < _level_size_x; x++)
+        {
+            if(row[x] == BLOCK_NONE)
+            {
+                free_positions.push_back({x, y});
+            }
+        }
+    }
+    int random_index = Utils::random(0, (int)free_positions.size());
+    return free_positions[random_index];
+}
+
+void LevelMap::update(float dt)
+{
+    for(Enemy* enemy : _enemies)
+    {
+        enemy->update(dt, *this);
+    }
+}
+
 LevelMap::~LevelMap()
 {
     delete _collider;
@@ -114,6 +145,11 @@ void LevelMap::destroyBlock(const Point& block_field_position)
     _brick_collider->removeBlockCollider(field_block_ptr);
 }
 
+void LevelMap::processCollisionsWithEnemies(BombFragment* fragment)
+{
+    
+}
+
 void LevelMap::affect(const Bomb& bomb)
 {
     Vector2 bomb_position = bomb.getPosition();
@@ -128,7 +164,7 @@ void LevelMap::affect(const Bomb& bomb)
         }
         else
         {
-            processCollisionsWithEnemies();
+            processCollisionsWithEnemies(fragment);
             destroyFragmentAfterDelay(fragment);
         }
     }
@@ -147,7 +183,7 @@ const LevelMapCollider& LevelMap::getCollider() const
     return *_collider;
 }
 
-const LevelMap::TLevelMapField& LevelMap::getField() const
+const TLevelMapField& LevelMap::getField() const
 {
     return _field;
 }
@@ -192,15 +228,52 @@ void LevelMap::render(SDL_Renderer *renderer)
     }
     for(BombFragment* bomb_fragment : _bomb_fragments)
     {
-        const Point& field_position = bomb_fragment->getFieldPosition();
-        SDL_Rect sdl_block;
-        sdl_block.x = field_position.x * block_size;
-        sdl_block.y = field_position.y * block_size;
-        sdl_block.h = block_size;
-        sdl_block.w = block_size;
-        SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
-        SDL_RenderFillRect(renderer, &sdl_block);
+        bomb_fragment->render(renderer);
     }
+    for(Enemy* enemy : _enemies)
+    {
+        enemy->render(renderer);
+    }
+}
+
+FieldBlock LevelMap::getBlockAtPoint(const Point& point) const
+{
+    return _field[point.y][point.x];
+}
+
+Vector2 LevelMap::chooseFreeDirection(const Vector2& start_position) const
+{
+    std::vector<Point> available_points;
+    Point point = getPointAtPosition(start_position);
+    Point left = {point.x - 1, point.y};
+    if(left.x >= 0 && getBlockAtPoint(left) == BLOCK_NONE)
+    {
+        available_points.push_back(left);
+    }
+    Point top = {point.x, point.y - 1};
+    if(top.y >= 0 && getBlockAtPoint(top) == BLOCK_NONE)
+    {
+        available_points.push_back(top);
+    }
+    Point right = {point.x + 1, point.y};
+    if(top.x < _level_size_x && getBlockAtPoint(right) == BLOCK_NONE)
+    {
+        available_points.push_back(right);
+    }
+    Point bottom = {point.x, point.y + 1};
+    if(bottom.y < _level_size_y && getBlockAtPoint(bottom) == BLOCK_NONE)
+    {
+        available_points.push_back(bottom);
+    }
+    if(available_points.size() > 0)
+    {
+        int random_index = Utils::random(0, (int)available_points.size() - 1);
+        Point random_point = available_points[random_index];
+        Vector2 position = {(random_point.x + 0.5f) * block_size, (random_point.y + 0.5f) * block_size};
+        Vector2 direction = position - start_position;
+        return direction;
+    }
+    return Vector2();
 }
 
 void LevelMap::generate()
@@ -229,9 +302,15 @@ void LevelMap::generate()
     }
 }
 
-FieldBlock LevelMap::getBlockAtPoint(const Vector2& point) const
+Point LevelMap::getPointAtPosition(const Vector2& position) const
 {
-    int block_index_x = fmin((int)point.x / block_size, _level_size_x);
-    int block_index_y = fmin((int)point.y / block_size, _level_size_y);
-    return _field[block_index_y][block_index_x];
+    int block_index_x = fmin((int)position.x / block_size, _level_size_x);
+    int block_index_y = fmin((int)position.y / block_size, _level_size_y);
+    return {block_index_x, block_index_y};
+}
+
+FieldBlock LevelMap::getBlockAtPosition(const Vector2& position) const
+{
+    Point point = getPointAtPosition(position);
+    return _field[point.y][point.x];
 }

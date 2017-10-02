@@ -17,7 +17,7 @@ class Bomb
 {
 public:
     Bomb(int power);
-    void render(SDL_Renderer* renderer);
+    void render(SDL_Renderer* renderer) const;
     void setPosition(const Vector2& position);
     const Vector2& getPosition() const;
     void detonate();

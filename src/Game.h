@@ -18,6 +18,7 @@
 #include "Player.h"
 #include "Joystick.h"
 #include "Bomb.h"
+#include "Button.h"
 
 class Game
 {
@@ -33,6 +34,7 @@ private:
     Player _player;
     Joystick _joystick;
     std::set<Bomb*> _bombs;
+    std::vector<Button> _buttons;
 };
 
 #endif /* Game_h */

@@ -13,14 +13,21 @@
 #include "LevelMap.h"
 #include "Dispatcher.h"
 
+Player* Player::_instance;
+
 Player::Player()
 : _collider(size.x * block_size / 2)
 , _bomb_power(3)
 {
-    
+    _instance = this;
 }
 
-void Player::render(SDL_Renderer* renderer)
+Player& Player::getInstance()
+{
+    return *_instance;
+}
+
+void Player::render(SDL_Renderer* renderer) const
 {
     SDL_Rect sdl_player;
     const Vector2& player_position = getPosition();
@@ -32,7 +39,7 @@ void Player::render(SDL_Renderer* renderer)
     SDL_RenderFillRect(renderer, &sdl_player);
 }
 
-const Vector2& Player::getPosition()
+const Vector2& Player::getPosition() const
 {
     return _collider.getPosition();
 }

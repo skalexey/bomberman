@@ -23,7 +23,7 @@ void LevelMapCollider::removeBlockCollider(FieldBlock* block)
 
 void LevelMapCollider::init(LevelMap const* level_map, FieldBlock block_type)
 {
-    const LevelMap::TLevelMapField& field = level_map->getField();
+    const TLevelMapField& field = level_map->getField();
     for(int y = 0; y < field.size(); y++)
     {
         const std::vector<FieldBlock>& row_in_map = field[y];

@@ -17,7 +17,7 @@ class Collider
 public:
     Collider();
     virtual bool check(const Collider& collider2) const = 0;
-    virtual bool containPoint(float x, float y) const;
+    virtual bool containPoint(int x, int y) const;
     bool setPosition(const Vector2& new_position);
     const Vector2& getPosition() const;
     bool checkCollisions();

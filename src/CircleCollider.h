@@ -17,7 +17,7 @@ public:
     CircleCollider(float size);
     bool check(const Collider& collider2) const;
     float getSize() const;
-    bool containPoint(float x, float y) const;
+    bool containPoint(int x, int y) const;
 private:
     float _size;
     float _size_squared;

@@ -18,6 +18,7 @@ public:
     BoxCollider(float x, float y, float w, float h);
     bool check(const Collider& collider2) const;
     Vector2 getSize() const;
+    bool containPoint(int x, int y) const;
 private:
     float _w;
     float _h;

@@ -22,7 +22,7 @@ float CircleCollider::getSize() const
     return _size;
 }
 
-bool CircleCollider::containPoint(float x, float y) const
+bool CircleCollider::containPoint(int x, int y) const
 {
     Vector2 point_position(x, y);
     Vector2 distance = point_position - _position;

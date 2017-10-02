@@ -20,14 +20,16 @@ class Player
 {
 public:
     Player();
-    void render(SDL_Renderer* renderer);
+    void render(SDL_Renderer* renderer) const;
     void setPosition(float field_x, float field_y);
     bool setPosition(const Vector2& new_position);
-    const Vector2& getPosition();
+    const Vector2& getPosition() const;
     void move(const Vector2& direction, float dt);
     Collider& getCollider();
     Bomb* putBomb();
+    static Player& getInstance();
 private:
+    static Player* _instance;
     const Vector2 size = {0.8f, 0.8f};
     const float default_speed = 50.0f;
     CircleCollider _collider;

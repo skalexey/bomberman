@@ -47,12 +47,14 @@
         
         
         bool operator == (const VectorT2& r) const;
+        bool operator > (const VectorT2& r) const;
+        bool operator < (const VectorT2& r) const;
         bool operator != (const VectorT2& r) const;
         
         //inline T &operator[](int i){return m[i];}
         //inline const T &operator[](int i)const{return m[i];}
         
-        T length() const {return (T)scalar::sqrt(x * x + y * y);}
+        float length() const {return (float)scalar::sqrt(x * x + y * y);}
         T sqlength() const {return dot(*this);}
         
         void normalize() { normalize(*this, *this); }
@@ -86,7 +88,23 @@
             return true;
         return false;
     }
-    
+
+    template<class T>
+    bool VectorT2<T>::operator < (const VectorT2<T>& r) const
+    {
+        if (sqlength() < r.sqlength())
+            return true;
+        return false;
+    }
+
+    template<class T>
+    bool VectorT2<T>::operator > (const VectorT2<T>& r) const
+    {
+        if (sqlength() > r.sqlength())
+            return true;
+        return false;
+    }
+
     template<class T>
     bool VectorT2<T>::operator != (const VectorT2<T>& r) const
     {
