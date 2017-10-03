@@ -29,12 +29,18 @@ public:
     void onMouseButtonUp();
     void onMouseMove();
     void update(float dt);
+    static void over();
+    void init();
 private:
-    LevelMap _level_map;
-    Player _player;
+    void destroy();
+    int _bomb_power;
+    static Game* _instance;
+    spLevelMap _level_map;
+    spPlayer _player;
     Joystick _joystick;
-    std::set<Bomb*> _bombs;
-    std::vector<Button> _buttons;
+    std::set<spBomb> _bombs;
+    std::vector<spButton> _buttons;
+    bool _destroyed;
 };
 
 #endif /* Game_h */

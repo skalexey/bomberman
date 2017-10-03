@@ -16,17 +16,26 @@ LevelMap::LevelMap()
 , _level_size_y(0)
 {
     generate();
-    _collider = new LevelMapCollider(this);
-    _concrete_collider = new LevelMapCollider(this, BLOCK_CONCRETE);
-    _brick_collider = new LevelMapCollider(this, BLOCK_BRICK);
+    _collider = spLevelMapCollider(new LevelMapCollider(this));
+    _concrete_collider = spLevelMapCollider(new LevelMapCollider(this, BLOCK_CONCRETE));
+    _brick_collider = spLevelMapCollider(new LevelMapCollider(this, BLOCK_BRICK));
+    _key = spKey(new Key());
+    _key->setPosition(findRandomPoint(BLOCK_BRICK));
+    _door = spDoor(new Door());
+    _door->setPosition(findRandomPoint(BLOCK_BRICK));
 }
 
-void LevelMap::addEnemy(Enemy* enemy)
+void LevelMap::addEnemy(const spEnemy& enemy)
 {
     _enemies.insert(enemy);
 }
 
-Point LevelMap::findRandomFreePosition()
+Point LevelMap::findRandomFreePoint()
+{
+    return findRandomPoint(BLOCK_NONE);
+}
+
+Point LevelMap::findRandomPoint(FieldBlock block)
 {
     std::vector<Point> free_positions;
     for(int y = 0; y < _level_size_y; y++)
@@ -34,7 +43,7 @@ Point LevelMap::findRandomFreePosition()
         std::vector<FieldBlock> row = _field[y];
         for(int x = 0; x < _level_size_x; x++)
         {
-            if(row[x] == BLOCK_NONE)
+            if(row[x] == block)
             {
                 free_positions.push_back({x, y});
             }
@@ -46,35 +55,54 @@ Point LevelMap::findRandomFreePosition()
 
 void LevelMap::update(float dt)
 {
-    for(Enemy* enemy : _enemies)
+    Player& player = Player::getInstance();
+    for(const spEnemy& enemy : _enemies)
     {
         enemy->update(dt, *this);
+        if(enemy->getCollider().check(player.getCollider()))
+        {
+            Game::over();
+            return;
+        }
+    }
+    if(_key)
+    {
+        const Collider& player_collider = player.getCollider();
+        if(_key->getCollider().check(player_collider))
+        {
+            player.setKeyFound();
+        }
+    }
+    if(_door)
+    {
+        if(player.haveKey() && _door->getCollider().check(player.getCollider()))
+        {
+            Game::over();
+        }
     }
 }
 
 LevelMap::~LevelMap()
 {
-    delete _collider;
-    delete _concrete_collider;
-    delete _brick_collider;
+    _enemies.clear();
+    _bomb_fragments.clear();
 }
 
-void LevelMap::generateBombFragments(const Bomb& bomb, std::vector<BombFragment*>& out)
+void LevelMap::generateBombFragments(const Bomb& bomb, std::vector<spBombFragment>& out)
 {
     int bomb_power = bomb.getPower();
     const Vector2& bomb_position = bomb.getPosition();
     int block_index_x = fmin((int)bomb_position.x / block_size, _level_size_x);
     int block_index_y = fmin((int)bomb_position.y / block_size, _level_size_y);
-    BombFragment* bomb_fragment = new BombFragment(block_index_x, block_index_y);
+    spBombFragment bomb_fragment(new BombFragment(block_index_x, block_index_y));
     _bomb_fragments.insert(bomb_fragment);
     out.push_back(bomb_fragment);
     
     for(int i = 0; i < bomb_power; i++)
     {
-        BombFragment* bomb_fragment = new BombFragment(block_index_x + i + 1, block_index_y);
+        spBombFragment bomb_fragment(new BombFragment(block_index_x + i + 1, block_index_y));
         if(_concrete_collider->check(bomb_fragment->getCollider()))
         {
-            delete bomb_fragment;
             break;
         }
         else
@@ -86,10 +114,9 @@ void LevelMap::generateBombFragments(const Bomb& bomb, std::vector<BombFragment*
     
     for(int i = 0; i < bomb_power; i++)
     {
-        BombFragment* bomb_fragment = new BombFragment(block_index_x - i - 1, block_index_y);
+        spBombFragment bomb_fragment(new BombFragment(block_index_x - i - 1, block_index_y));
         if(_concrete_collider->check(bomb_fragment->getCollider()))
         {
-            delete bomb_fragment;
             break;
         }
         else
@@ -101,10 +128,9 @@ void LevelMap::generateBombFragments(const Bomb& bomb, std::vector<BombFragment*
     
     for(int i = 0; i < bomb_power; i++)
     {
-        BombFragment* bomb_fragment = new BombFragment(block_index_x, block_index_y + i + 1);
+        spBombFragment bomb_fragment(new BombFragment(block_index_x, block_index_y + i + 1));
         if(_concrete_collider->check(bomb_fragment->getCollider()))
         {
-            delete bomb_fragment;
             break;
         }
         else
@@ -116,10 +142,9 @@ void LevelMap::generateBombFragments(const Bomb& bomb, std::vector<BombFragment*
     
     for(int i = 0; i < bomb_power; i++)
     {
-        BombFragment* bomb_fragment = new BombFragment(block_index_x, block_index_y - i - 1);
+        spBombFragment bomb_fragment(new BombFragment(block_index_x, block_index_y - i - 1));
         if(_concrete_collider->check(bomb_fragment->getCollider()))
         {
-            delete bomb_fragment;
             break;
         }
         else
@@ -130,10 +155,9 @@ void LevelMap::generateBombFragments(const Bomb& bomb, std::vector<BombFragment*
     }
 }
 
-void LevelMap::removeFragment(BombFragment* fragment)
+void LevelMap::removeFragment(const spBombFragment& fragment)
 {
     _bomb_fragments.erase(fragment);
-    delete fragment;
 }
 
 void LevelMap::destroyBlock(const Point& block_field_position)
@@ -145,17 +169,28 @@ void LevelMap::destroyBlock(const Point& block_field_position)
     _brick_collider->removeBlockCollider(field_block_ptr);
 }
 
-void LevelMap::processCollisionsWithEnemies(BombFragment* fragment)
+void LevelMap::processCollisionsWithEnemies(const spBombFragment& fragment)
 {
-    
+    for(const spEnemy& enemy : _enemies)
+    {
+        if(fragment->getCollider().check(enemy->getCollider()))
+        {
+            enemy->die();
+            Dispatcher::instance().runAfter([=]()
+            {
+                _enemies.erase(enemy);
+                return true;
+            }, 1400);
+        }
+    }
 }
 
-void LevelMap::affect(const Bomb& bomb)
+bool LevelMap::affect(const Bomb& bomb)
 {
     Vector2 bomb_position = bomb.getPosition();
-    std::vector<BombFragment*> bomb_fragments;
+    std::vector<spBombFragment> bomb_fragments;
     generateBombFragments(bomb, bomb_fragments);
-    for(BombFragment* fragment : bomb_fragments)
+    for(const spBombFragment& fragment : bomb_fragments)
     {
         if(_brick_collider->check(fragment->getCollider()))
         {
@@ -164,17 +199,27 @@ void LevelMap::affect(const Bomb& bomb)
         }
         else
         {
-            processCollisionsWithEnemies(fragment);
-            destroyFragmentAfterDelay(fragment);
+            if(fragment->getCollider().check(Player::getInstance().getCollider()))
+            {
+                Game::over();
+                return false;
+            }
+            else
+            {
+                processCollisionsWithEnemies(fragment);
+                destroyFragmentAfterDelay(fragment);
+            }
         }
     }
+    return true;
 }
 
-void LevelMap::destroyFragmentAfterDelay(BombFragment* fragment)
+void LevelMap::destroyFragmentAfterDelay(const spBombFragment& fragment)
 {
     Dispatcher::instance().runAfter([=]()
     {
         removeFragment(fragment);
+        return true;
     }, 1200);
 }
 
@@ -190,6 +235,14 @@ const TLevelMapField& LevelMap::getField() const
 
 void LevelMap::render(SDL_Renderer *renderer)
 {
+    if(_key)
+    {
+        _key->render(renderer);
+    }
+    if(_door)
+    {
+        _door->render(renderer);
+    }
     for(int y = 0; y < _level_size_y; y++)
     {
         const std::vector<FieldBlock>& field_row = _field[y];
@@ -226,11 +279,11 @@ void LevelMap::render(SDL_Renderer *renderer)
             }
         }
     }
-    for(BombFragment* bomb_fragment : _bomb_fragments)
+    for(const spBombFragment& bomb_fragment : _bomb_fragments)
     {
         bomb_fragment->render(renderer);
     }
-    for(Enemy* enemy : _enemies)
+    for(const spEnemy& enemy : _enemies)
     {
         enemy->render(renderer);
     }
@@ -241,27 +294,37 @@ FieldBlock LevelMap::getBlockAtPoint(const Point& point) const
     return _field[point.y][point.x];
 }
 
+bool LevelMap::isPointPassable(const Point& point) const
+{
+    bool is_coordinate_valid = point.x >= 0 && point.y >= 0 && point.y < _field.size() && point.x < _field[0].size();
+    return is_coordinate_valid && _field[point.y][point.x] == BLOCK_NONE;
+}
+
 Vector2 LevelMap::chooseFreeDirection(const Vector2& start_position) const
 {
     std::vector<Point> available_points;
     Point point = getPointAtPosition(start_position);
     Point left = {point.x - 1, point.y};
-    if(left.x >= 0 && getBlockAtPoint(left) == BLOCK_NONE)
+    if(!isPointPassable(point))
+    {
+        return Vector2();
+    }
+    if(isPointPassable(left))
     {
         available_points.push_back(left);
     }
     Point top = {point.x, point.y - 1};
-    if(top.y >= 0 && getBlockAtPoint(top) == BLOCK_NONE)
+    if(isPointPassable(top))
     {
         available_points.push_back(top);
     }
     Point right = {point.x + 1, point.y};
-    if(top.x < _level_size_x && getBlockAtPoint(right) == BLOCK_NONE)
+    if(isPointPassable(right))
     {
         available_points.push_back(right);
     }
     Point bottom = {point.x, point.y + 1};
-    if(bottom.y < _level_size_y && getBlockAtPoint(bottom) == BLOCK_NONE)
+    if(isPointPassable(bottom))
     {
         available_points.push_back(bottom);
     }
@@ -289,7 +352,7 @@ void LevelMap::generate()
             {
                 field_row[x] = BLOCK_CONCRETE;
             }
-            else if(!(x == 1 && y == 1)) // start position should be clean
+            else if(!(x == 1 && y == 1) && !(x == 1 && y == 2) && ! (x == 2 && y == 1)) // start position should be clean
             {
                 field_row[x] = (FieldBlock)Utils::random(0, 2) == 0 ? BLOCK_BRICK : BLOCK_NONE;
             }

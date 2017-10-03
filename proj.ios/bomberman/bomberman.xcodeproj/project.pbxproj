@@ -14,6 +14,9 @@
 		79280E3F1F7D417700B2761D /* BoxCollider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79280E3D1F7D417700B2761D /* BoxCollider.cpp */; };
 		79280E441F7D5DB500B2761D /* Dispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79280E421F7D5DB500B2761D /* Dispatcher.cpp */; };
 		79280E471F7D5DF500B2761D /* Bomb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79280E451F7D5DF500B2761D /* Bomb.cpp */; };
+		79598C461F8383110014D997 /* Key.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79598C441F8383110014D997 /* Key.cpp */; };
+		79598C4B1F838A8E0014D997 /* Door.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79598C491F838A8E0014D997 /* Door.cpp */; };
+		79598C501F83DFCF0014D997 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79598C4F1F83DFCF0014D997 /* main.cpp */; };
 		79677D341F7BEB7E006F6F19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79677D331F7BEB7E006F6F19 /* Assets.xcassets */; };
 		79677D421F7BEB7F006F6F19 /* bombermanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 79677D411F7BEB7F006F6F19 /* bombermanTests.m */; };
 		79677D4D1F7BEB7F006F6F19 /* bombermanUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 79677D4C1F7BEB7F006F6F19 /* bombermanUITests.m */; };
@@ -30,7 +33,6 @@
 		79677D821F7BEF09006F6F19 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79677D7A1F7BEDFF006F6F19 /* AVFoundation.framework */; };
 		79677D841F7BEFE6006F6F19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79677D831F7BEFE6006F6F19 /* Main.storyboard */; };
 		79677D881F7BF550006F6F19 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79677D861F7BF550006F6F19 /* Game.cpp */; };
-		79677D8A1F7BF68F006F6F19 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79677D891F7BF68F006F6F19 /* main.cpp */; };
 		79677D8E1F7BF969006F6F19 /* LevelMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79677D8C1F7BF969006F6F19 /* LevelMap.cpp */; };
 		79677D951F7BFF15006F6F19 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79677D931F7BFF15006F6F19 /* Utils.cpp */; };
 		79677D991F7C0D7D006F6F19 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79677D971F7C0D7D006F6F19 /* Player.cpp */; };
@@ -99,6 +101,12 @@
 		79280E431F7D5DB500B2761D /* Dispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dispatcher.h; sourceTree = "<group>"; };
 		79280E451F7D5DF500B2761D /* Bomb.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bomb.cpp; sourceTree = "<group>"; };
 		79280E461F7D5DF500B2761D /* Bomb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bomb.h; sourceTree = "<group>"; };
+		79598C441F8383110014D997 /* Key.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Key.cpp; sourceTree = "<group>"; };
+		79598C451F8383110014D997 /* Key.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Key.h; sourceTree = "<group>"; };
+		79598C491F838A8E0014D997 /* Door.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Door.cpp; sourceTree = "<group>"; };
+		79598C4A1F838A8E0014D997 /* Door.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Door.h; sourceTree = "<group>"; };
+		79598C4D1F83DE2D0014D997 /* FieldBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldBlock.h; sourceTree = "<group>"; };
+		79598C4F1F83DFCF0014D997 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		79677D241F7BEB7E006F6F19 /* bomberman.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bomberman.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79677D331F7BEB7E006F6F19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		79677D381F7BEB7E006F6F19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -124,7 +132,6 @@
 		79677D831F7BEFE6006F6F19 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		79677D861F7BF550006F6F19 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		79677D871F7BF550006F6F19 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
-		79677D891F7BF68F006F6F19 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		79677D8C1F7BF969006F6F19 /* LevelMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LevelMap.cpp; sourceTree = "<group>"; };
 		79677D8D1F7BF969006F6F19 /* LevelMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelMap.h; sourceTree = "<group>"; };
 		79677D931F7BFF15006F6F19 /* Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
@@ -192,7 +199,6 @@
 		79677D1B1F7BEB7E006F6F19 = {
 			isa = PBXGroup;
 			children = (
-				79677D891F7BF68F006F6F19 /* main.cpp */,
 				79677D831F7BEFE6006F6F19 /* Main.storyboard */,
 				79677D5A1F7BEC05006F6F19 /* SDL.xcodeproj */,
 				79677D261F7BEB7E006F6F19 /* bomberman */,
@@ -273,6 +279,7 @@
 		79677D851F7BF540006F6F19 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				79598C4F1F83DFCF0014D997 /* main.cpp */,
 				79280E421F7D5DB500B2761D /* Dispatcher.cpp */,
 				79280E431F7D5DB500B2761D /* Dispatcher.h */,
 				79677D861F7BF550006F6F19 /* Game.cpp */,
@@ -315,6 +322,11 @@
 				79EE6ADA1F824D80003C78F9 /* Button.h */,
 				79EE6ADC1F824E23003C78F9 /* Rect.cpp */,
 				79EE6ADD1F824E23003C78F9 /* Rect.h */,
+				79598C441F8383110014D997 /* Key.cpp */,
+				79598C451F8383110014D997 /* Key.h */,
+				79598C491F838A8E0014D997 /* Door.cpp */,
+				79598C4A1F838A8E0014D997 /* Door.h */,
+				79598C4D1F83DE2D0014D997 /* FieldBlock.h */,
 			);
 			name = src;
 			path = ../../src;
@@ -484,7 +496,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79677D8A1F7BF68F006F6F19 /* main.cpp in Sources */,
 				79677D9C1F7C1D53006F6F19 /* Vector2.cpp in Sources */,
 				79677D8E1F7BF969006F6F19 /* LevelMap.cpp in Sources */,
 				79677D9F1F7C1EC0006F6F19 /* ScalarMath.cpp in Sources */,
@@ -499,11 +510,14 @@
 				79280E3F1F7D417700B2761D /* BoxCollider.cpp in Sources */,
 				79B7D3651F7E3B9C00B0AAE6 /* BombFragment.cpp in Sources */,
 				79280E441F7D5DB500B2761D /* Dispatcher.cpp in Sources */,
+				79598C501F83DFCF0014D997 /* main.cpp in Sources */,
 				79677D951F7BFF15006F6F19 /* Utils.cpp in Sources */,
 				79280E381F7D08E400B2761D /* Collider.cpp in Sources */,
 				79677D991F7C0D7D006F6F19 /* Player.cpp in Sources */,
+				79598C461F8383110014D997 /* Key.cpp in Sources */,
 				79EE6ADB1F824D80003C78F9 /* Button.cpp in Sources */,
 				79EE6AD61F824CB2003C78F9 /* Color.cpp in Sources */,
+				79598C4B1F838A8E0014D997 /* Door.cpp in Sources */,
 				79280E351F7D089400B2761D /* CircleCollider.cpp in Sources */,
 				79B7D3701F7E675300B0AAE6 /* EnemyWandering.cpp in Sources */,
 			);

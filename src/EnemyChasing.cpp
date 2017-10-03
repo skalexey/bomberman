@@ -28,8 +28,12 @@ void EnemyChasing::render(SDL_Renderer* renderer) const
     SDL_RenderFillRect(renderer, &sdl_enemy);
 }
 
-void EnemyChasing::update(float dt, const LevelMap& level_map)
+bool EnemyChasing::update(float dt, const LevelMap& level_map)
 {
+    if(!Enemy::update(dt, level_map))
+    {
+        return false;
+    }
     _path.clear();
     const Vector2& position = getPosition();
     Point start_point = level_map.getPointAtPosition(position);
@@ -47,4 +51,5 @@ void EnemyChasing::update(float dt, const LevelMap& level_map)
         Vector2 direction = player.getPosition() - position;
         setPosition(position + direction * dt);
     }
+    return true;
 }

@@ -9,6 +9,7 @@
 #ifndef BombFragment_h
 #define BombFragment_h
 
+#include <memory>
 #include "Vector2.h"
 #include "BoxCollider.h"
 #include "SDL.h"
@@ -24,5 +25,6 @@ private:
     Point _field_position;
     BoxCollider _collider;
 };
+typedef std::shared_ptr<BombFragment> spBombFragment;
 
 #endif /* BombFragment_h */

@@ -11,43 +11,104 @@
 #include "EnemyChasing.h"
 #include "EnemyWandering.h"
 
+Game* Game::_instance;
+
 Game::Game()
+: _destroyed(false)
+, _bomb_power(3)
 {
-    _player.setPosition(1, 1);
-    _player.getCollider().addCollider(&_level_map.getCollider());
-    Button button_ew(Rect(360, 290, 100, 50), Color(255, 0, 0, 255), [=]()
-    {
-        Point random_free_position = _level_map.findRandomFreePosition();
-        EnemyWandering* enemy = new EnemyWandering(random_free_position);
-        _level_map.addEnemy(enemy);
-    });
+    _instance = this;
+    init();
+}
+
+void Game::init()
+{
+    _player = spPlayer(new Player());
+    _level_map = spLevelMap(new LevelMap());
+    _player->setPosition(1, 1);
+    _player->getCollider().addCollider(&_level_map->getCollider());
+    spButton button_ew(new Button(Rect(360, 290, 100, 50), Color(255, 0, 0, 255), [=]()
+                     {
+                         Point random_free_position = _level_map->findRandomFreePoint();
+                         spEnemyWandering enemy(new EnemyWandering(random_free_position));
+                         _level_map->addEnemy(enemy);
+                     }));
     _buttons.push_back(button_ew);
-    Button button_ec(Rect(240, 290, 100, 50), Color(119, 0, 255, 255), [=]()
-    {
-        Point random_free_position = _level_map.findRandomFreePosition();
-        EnemyChasing* enemy = new EnemyChasing(random_free_position);
-        _level_map.addEnemy(enemy);
-    });
+    spButton button_ec(new Button(Rect(240, 290, 100, 50), Color(119, 0, 255, 255), [=]()
+                     {
+                         Point random_free_position = _level_map->findRandomFreePoint();
+                         spEnemyChasing enemy(new EnemyChasing(random_free_position));
+                         _level_map->addEnemy(enemy);
+                     }));
     _buttons.push_back(button_ec);
-    Point random_free_position = _level_map.findRandomFreePosition();
-    EnemyWandering* enemy = new EnemyWandering(random_free_position);
-    _level_map.addEnemy(enemy);
-    random_free_position = _level_map.findRandomFreePosition();
-    EnemyChasing* enemy2 = new EnemyChasing(random_free_position);
-    _level_map.addEnemy(enemy2);
+    spButton button_bomb(new Button(Rect(120, 290, 100, 50), Color(0, 0, 0, 255), [=]()
+                                   {
+                                       spBomb bomb(new Bomb(_bomb_power));
+                                       Dispatcher::instance().runAfter([=]()
+                                       {
+                                           return bomb->detonate();
+                                       }, 2000);
+                                       bomb->setPosition(_player->getPosition());
+                                       bomb->setOnDetonated([=]()
+                                        {
+                                            _bombs.erase(bomb);
+                                            if(!_level_map->affect(*bomb))
+                                            {
+                                                return false;
+                                            }
+                                            else
+                                            {
+                                                return true;
+                                            }
+                                        });
+                                       _bombs.insert(bomb);
+                                   }));
+    _buttons.push_back(button_bomb);
+    Point random_free_position = _level_map->findRandomFreePoint();
+    spEnemyWandering enemy(new EnemyWandering(random_free_position));
+    _level_map->addEnemy(enemy);
+    random_free_position = _level_map->findRandomFreePoint();
+    spEnemyChasing enemy2(new EnemyChasing(random_free_position));
+    _level_map->addEnemy(enemy2);
+    _destroyed = false;
+}
+
+void Game::over()
+{
+    _instance->destroy();
+    _instance->init();
+    Dispatcher::instance().cancelAll();
+}
+
+void Game::destroy()
+{
+    _bombs.clear();
+    _buttons.clear();
+//    generateOverScreen();
+    _destroyed = true;
 }
 
 void Game::render(SDL_Renderer *renderer)
 {
-    _level_map.render(renderer);
-    _player.render(renderer);
-    for(Bomb* bomb : _bombs)
+    if(_level_map)
+    {
+        _level_map->render(renderer);
+    }
+    if(_player)
+    {
+        _player->render(renderer);
+    }
+    for(const spBomb& bomb : _bombs)
     {
         bomb->render(renderer);
     }
-    for(const Button& button: _buttons)
+    for(const spButton& button: _buttons)
     {
-        button.render(renderer);
+        button->render(renderer);
+    }
+    if(_destroyed)
+    {
+        
     }
 }
 
@@ -56,20 +117,9 @@ void Game::onMouseButtonDown()
     int x, y;
     SDL_GetMouseState(&x, &y);
     _joystick.setPosition(x, y);
-    if(_player.getCollider().containPoint(x, y))
+    for(const spButton& button : _buttons)
     {
-        Bomb* bomb = _player.putBomb();
-        bomb->setOnDetonated([=]()
-                             {
-                                 _bombs.erase(bomb);
-                                 _level_map.affect(*bomb);
-                                 delete bomb;
-                             });
-        _bombs.insert(bomb);
-    }
-    for(Button& button : _buttons)
-    {
-        button.processTap(x, y);
+        button->processTap(x, y);
     }
 }
 
@@ -89,8 +139,17 @@ void Game::update(float dt)
 {
     if(_joystick.getSquaredForce() > 0)
     {
-        _player.move(_joystick.getDirection(), dt);
+        if(_player)
+        {
+            _player->move(_joystick.getDirection(), dt);
+        }
     }
-    Dispatcher::instance().update();
-    _level_map.update(dt);
+    if(!Dispatcher::instance().update())
+    {
+        return;
+    }
+    if(_level_map)
+    {
+        _level_map->update(dt);
+    }
 }

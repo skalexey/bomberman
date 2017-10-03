@@ -11,8 +11,14 @@
 
 Enemy::Enemy(const Point& start_position)
 : _collider(0.9f * block_size / 2)
+, _is_dead(false)
 {
     setPosition(start_position);
+}
+
+void Enemy::die()
+{
+    _is_dead = true;    
 }
 
 float Enemy::getSize() const
@@ -38,4 +44,9 @@ void Enemy::setPosition(const Point& field_position)
 void Enemy::setPosition(const Vector2& position)
 {
     _collider.setPosition(position);
+}
+
+bool Enemy::update(float dt, const LevelMap& level_map)
+{
+    return !_is_dead;
 }

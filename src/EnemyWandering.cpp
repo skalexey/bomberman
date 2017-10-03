@@ -28,8 +28,12 @@ void EnemyWandering::render(SDL_Renderer* renderer) const
     SDL_RenderFillRect(renderer, &sdl_enemy);
 }
 
-void EnemyWandering::update(float dt, const LevelMap& level_map)
+bool EnemyWandering::update(float dt, const LevelMap& level_map)
 {
+    if(!Enemy::update(dt, level_map))
+    {
+        return false;
+    }
     const Vector2& current_position = getPosition();
     if(_direction.sqlength() == 0)
     {
@@ -37,7 +41,7 @@ void EnemyWandering::update(float dt, const LevelMap& level_map)
     }
     if(_direction.sqlength() == 0)
     {
-        return;
+        return true;
     }
     Vector2 last_position = current_position;
     Vector2 position_after_dt = current_position + _direction * dt;
@@ -49,4 +53,5 @@ void EnemyWandering::update(float dt, const LevelMap& level_map)
         setPosition(position);
         _direction = level_map.chooseFreeDirection(current_position);
     }
+    return true;
 }

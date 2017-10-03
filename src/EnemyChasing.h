@@ -21,10 +21,11 @@ class EnemyChasing : public Enemy
 public:
     EnemyChasing(const Point& start_point);
     void render(SDL_Renderer* renderer) const;
-    void update(float dt, const LevelMap& level_map);
+    bool update(float dt, const LevelMap& level_map);
 private:
     std::deque<Point> _path;
     PathFinder _path_finder;
 };
+typedef std::shared_ptr<EnemyChasing> spEnemyChasing;
 
 #endif /* EnemyChasing_h */

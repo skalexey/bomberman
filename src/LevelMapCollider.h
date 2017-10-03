@@ -9,11 +9,14 @@
 #ifndef LevelMapCollider_h
 #define LevelMapCollider_h
 
+#include <memory>
 #include <unordered_map>
 #include "Collider.h"
 #include "CircleCollider.h"
 #include "BoxCollider.h"
-#include "LevelMap.h"
+#include "FieldBlock.h"
+
+class LevelMap;
 
 class LevelMapCollider : public Collider
 {
@@ -26,5 +29,5 @@ private:
     LevelMap const* _level_map;
     std::unordered_map<FieldBlock const*, BoxCollider> _blocks_colliders;
 };
-
+typedef std::shared_ptr<LevelMapCollider> spLevelMapCollider;
 #endif /* LevelMapCollider_h */

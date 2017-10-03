@@ -56,6 +56,7 @@
         
         float length() const {return (float)scalar::sqrt(x * x + y * y);}
         T sqlength() const {return dot(*this);}
+        T manhattanLength() const {return abs(x) + abs(y);}
         
         void normalize() { normalize(*this, *this); }
         void normalizeTo(T len) { normalize(); *this *= len; }

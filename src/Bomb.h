@@ -10,6 +10,7 @@
 #define Bomb_h
 
 #include <functional>
+#include <memory>
 #include "SDL.h"
 #include "Vector2.h"
 
@@ -20,14 +21,15 @@ public:
     void render(SDL_Renderer* renderer) const;
     void setPosition(const Vector2& position);
     const Vector2& getPosition() const;
-    void detonate();
-    void setOnDetonated(const std::function<void()>& callback_to_do_on_detonated);
+    bool detonate();
+    void setOnDetonated(const std::function<bool()>& callback_to_do_on_detonated);
     int getPower() const;
 private:
     Vector2 _position;
     int _power;
 private:
-    std::function<void()> _callback_to_do_on_detonated;
+    std::function<bool()> _callback_to_do_on_detonated;
 };
+typedef std::shared_ptr<Bomb> spBomb;
 
 #endif /* Bomb_h */

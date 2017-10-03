@@ -17,14 +17,24 @@ Player* Player::_instance;
 
 Player::Player()
 : _collider(size.x * block_size / 2)
-, _bomb_power(3)
+, _key_found(false)
 {
     _instance = this;
+}
+
+void Player::setKeyFound()
+{
+    _key_found = true;
 }
 
 Player& Player::getInstance()
 {
     return *_instance;
+}
+
+bool Player::haveKey()
+{
+    return _key_found;
 }
 
 void Player::render(SDL_Renderer* renderer) const
@@ -52,17 +62,6 @@ void Player::setPosition(float field_x, float field_y)
 bool Player::setPosition(const Vector2& new_position)
 {
     return _collider.setPosition(new_position);
-}
-
-Bomb* Player::putBomb()
-{
-    Bomb* bomb = new Bomb(_bomb_power);
-    Dispatcher::instance().runAfter([=]()
-    {
-        bomb->detonate();
-    }, 2000);
-    bomb->setPosition(getPosition());
-    return bomb;
 }
 
 Collider& Player::getCollider()

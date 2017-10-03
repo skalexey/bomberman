@@ -10,6 +10,7 @@
 #define Button_h
 
 #include <functional>
+#include <memory>
 #include "Color.h"
 #include "BoxCollider.h"
 #include "Rect.h"
@@ -27,5 +28,5 @@ private:
     Color _color;
     std::function<void()> _callback_to_do_on_tap;
 };
-
+typedef std::shared_ptr<Button> spButton;
 #endif /* Button_h */

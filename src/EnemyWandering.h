@@ -18,9 +18,9 @@ class EnemyWandering : public Enemy
 public:
     EnemyWandering(const Point& start_point);
     void render(SDL_Renderer* renderer) const;
-    void update(float dt, const LevelMap& level_map);
+    bool update(float dt, const LevelMap& level_map);
 private:
     Vector2 _direction;
 };
-
+typedef std::shared_ptr<EnemyWandering> spEnemyWandering;
 #endif /* EnemyWondering_h */
