@@ -18,8 +18,8 @@
 struct Timeout
 {
     Timeout(){}
-    Timeout(std::function<bool()> callback_to_do, int timeout_ms);
-    std::function<bool()> callback_to_do;
+    Timeout(std::function<void()> callback_to_do, int timeout_ms);
+    std::function<void()> callback_to_do;
     int timeout_ms;
     std::chrono::steady_clock::time_point creation_time;
 };
@@ -27,8 +27,8 @@ struct Timeout
 struct Interval
 {
     Interval(){}
-    Interval(std::function<bool()> callback_to_do, int timeout_ms);
-    std::function<bool()> callback_to_do;
+    Interval(std::function<void()> callback_to_do, int timeout_ms);
+    std::function<void()> callback_to_do;
     int timeout_ms;
     std::chrono::steady_clock::time_point last_cycle_time;
 };
@@ -37,9 +37,9 @@ class Dispatcher
 {
 public:
     static Dispatcher& instance();
-    int runAfter(std::function<bool()> callback_to_do, int timeout_ms);
-    int runAndRepeatAfter(std::function<bool()> callback_to_do, int timeout_ms);
-    bool update();
+    int runAfter(std::function<void()> callback_to_do, int timeout_ms);
+    int runAndRepeatAfter(std::function<void()> callback_to_do, int timeout_ms);
+    void update();
     void cancelInterval(int id);
     void cancelAll();
 private:

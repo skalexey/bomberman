@@ -25,6 +25,7 @@ public:
 private:
     std::deque<Point> _path;
     PathFinder _path_finder;
+    Vector2 _direction;
 };
 typedef std::shared_ptr<EnemyChasing> spEnemyChasing;
 

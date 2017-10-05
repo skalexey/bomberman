@@ -24,32 +24,61 @@ void EnemyChasing::render(SDL_Renderer* renderer) const
     sdl_enemy.h = size * 2;
     sdl_enemy.x = position.x - sdl_enemy.w / 2;
     sdl_enemy.y = position.y - sdl_enemy.h / 2;
-    SDL_SetRenderDrawColor(renderer, 119, 0, 255, 255);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 180, 255);
     SDL_RenderFillRect(renderer, &sdl_enemy);
 }
 
-bool EnemyChasing::update(float dt, const LevelMap& level_map)
+bool EnemyChasing::update(float delta_t, const LevelMap& level_map)
 {
+    float dt = fmin(delta_t, 0.2f);
     if(!Enemy::update(dt, level_map))
     {
         return false;
     }
-    _path.clear();
     const Vector2& position = getPosition();
     Point start_point = level_map.getPointAtPosition(position);
     Player& player = Player::getInstance();
-    Point target_point = level_map.getPointAtPosition(player.getPosition());
-    _path_finder.findPath(_path, start_point, target_point, level_map.getField());
+    const Vector2& target_position = player.getPosition();
+    Point target_point = level_map.getPointAtPosition(target_position);
+    if(_path.empty())
+    {
+        _path_finder.findPath(_path, start_point, target_point, level_map.getField());
+        if(_path.size() > 1)
+        {
+            Vector2 target = level_map.getPositionAtPoint(_path[1]);
+            _direction = (target - position).normalized();
+        }
+        else if(_path.size() == 1)
+        {
+            Vector2 target = target_position;
+            _direction = (target - position).normalized();
+        }
+    }
     if(_path.size() > 1)
     {
         const Point& penult_point = _path[1];
-        Vector2 direction = Vector2((penult_point.x + 0.5f) * block_size, (penult_point.y + 0.5f) * block_size) - position;
-        setPosition(position + direction * dt);
+        Vector2 direction = (level_map.getPositionAtPoint(penult_point) - position);
+        Vector2 direction_normalized = direction.normalized();
+        Vector2 delta_d = direction_normalized + _direction;
+        if(delta_d.x == 0 && delta_d.y == 0)
+        {
+            setPosition(level_map.getPositionAtPoint(penult_point));
+            _path.clear();
+            return false;
+        }
+        else
+        {
+            setPosition(position + direction_normalized * dt * 20);
+        }
     }
     else if(_path.size() == 1)
     {
         Vector2 direction = player.getPosition() - position;
         setPosition(position + direction * dt);
+        if(direction.length() > block_size)
+        {
+            _path.clear();
+        }
     }
     return true;
 }

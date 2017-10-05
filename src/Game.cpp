@@ -34,7 +34,7 @@ void Game::init()
                          _level_map->addEnemy(enemy);
                      }));
     _buttons.push_back(button_ew);
-    spButton button_ec(new Button(Rect(240, 290, 100, 50), Color(119, 0, 255, 255), [=]()
+    spButton button_ec(new Button(Rect(240, 290, 100, 50), Color(0, 0, 180, 255), [=]()
                      {
                          Point random_free_position = _level_map->findRandomFreePoint();
                          spEnemyChasing enemy(new EnemyChasing(random_free_position));
@@ -46,20 +46,13 @@ void Game::init()
                                        spBomb bomb(new Bomb(_bomb_power));
                                        Dispatcher::instance().runAfter([=]()
                                        {
-                                           return bomb->detonate();
+                                           bomb->detonate();
                                        }, 2000);
                                        bomb->setPosition(_player->getPosition());
                                        bomb->setOnDetonated([=]()
                                         {
+                                            _level_map->affect(*bomb);
                                             _bombs.erase(bomb);
-                                            if(!_level_map->affect(*bomb))
-                                            {
-                                                return false;
-                                            }
-                                            else
-                                            {
-                                                return true;
-                                            }
                                         });
                                        _bombs.insert(bomb);
                                    }));
@@ -144,12 +137,9 @@ void Game::update(float dt)
             _player->move(_joystick.getDirection(), dt);
         }
     }
-    if(!Dispatcher::instance().update())
-    {
-        return;
-    }
     if(_level_map)
     {
         _level_map->update(dt);
     }
+    Dispatcher::instance().update();
 }

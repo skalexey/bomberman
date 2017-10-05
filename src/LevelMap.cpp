@@ -30,6 +30,11 @@ void LevelMap::addEnemy(const spEnemy& enemy)
     _enemies.insert(enemy);
 }
 
+Vector2 LevelMap::getPositionAtPoint(const Point& point) const
+{
+    return {(point.x + 0.5f) * block_size, (point.y + 0.5f) * block_size};
+}
+
 Point LevelMap::findRandomFreePoint()
 {
     return findRandomPoint(BLOCK_NONE);
@@ -179,7 +184,6 @@ void LevelMap::processCollisionsWithEnemies(const spBombFragment& fragment)
             Dispatcher::instance().runAfter([=]()
             {
                 _enemies.erase(enemy);
-                return true;
             }, 1400);
         }
     }
@@ -219,7 +223,6 @@ void LevelMap::destroyFragmentAfterDelay(const spBombFragment& fragment)
     Dispatcher::instance().runAfter([=]()
     {
         removeFragment(fragment);
-        return true;
     }, 1200);
 }
 
@@ -337,6 +340,57 @@ Vector2 LevelMap::chooseFreeDirection(const Vector2& start_position) const
         return direction;
     }
     return Vector2();
+}
+
+bool LevelMap::isCrosswayOrDeadend(const Vector2& position) const
+{
+    Point point = getPointAtPosition(position);
+    Point left = {point.x - 1, point.y};
+    int free_directions_count = 0;
+    if(!isPointPassable(point))
+    {
+        return true;
+    }
+    if(isPointPassable(left))
+    {
+        free_directions_count++;
+    }
+    Point top = {point.x, point.y - 1};
+    if(isPointPassable(top))
+    {
+        free_directions_count++;
+    }
+    Point right = {point.x + 1, point.y};
+    if(isPointPassable(right))
+    {
+        free_directions_count++;
+    }
+    Point bottom = {point.x, point.y + 1};
+    if(isPointPassable(bottom))
+    {
+        free_directions_count++;
+    }
+    return free_directions_count > 2 || free_directions_count == 1;
+}
+
+Vector2 LevelMap::findNearestCrossway(const Vector2& position, const Vector2& direction) const
+{
+    Vector2 scaled_direction = direction.normalized() * block_size;
+    Vector2 next_position = position;
+    do
+    {
+        next_position = next_position + scaled_direction;
+        if(!isPointPassable(getPointAtPosition(next_position)))
+        {
+            return next_position - scaled_direction;
+        }
+    }
+    while(!isCrosswayOrDeadend(next_position));
+    if(!isPointPassable(getPointAtPosition(next_position)))
+    {
+        return position;
+    }
+    return next_position;
 }
 
 void LevelMap::generate()

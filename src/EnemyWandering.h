@@ -21,6 +21,7 @@ public:
     bool update(float dt, const LevelMap& level_map);
 private:
     Vector2 _direction;
+    Vector2 _target;
 };
 typedef std::shared_ptr<EnemyWandering> spEnemyWandering;
 #endif /* EnemyWondering_h */

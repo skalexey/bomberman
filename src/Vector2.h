@@ -93,7 +93,7 @@
     template<class T>
     bool VectorT2<T>::operator < (const VectorT2<T>& r) const
     {
-        if (sqlength() < r.sqlength())
+        if (x * 100 + y < r.x * 100 + r.y)
             return true;
         return false;
     }
@@ -101,7 +101,7 @@
     template<class T>
     bool VectorT2<T>::operator > (const VectorT2<T>& r) const
     {
-        if (sqlength() > r.sqlength())
+        if (x * 100 + y > r.x * 100 + r.y)
             return true;
         return false;
     }

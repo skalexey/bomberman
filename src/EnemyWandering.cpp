@@ -30,6 +30,7 @@ void EnemyWandering::render(SDL_Renderer* renderer) const
 
 bool EnemyWandering::update(float dt, const LevelMap& level_map)
 {
+//    float dt = fmin(delta_t, 0.2f);
     if(!Enemy::update(dt, level_map))
     {
         return false;
@@ -43,15 +44,31 @@ bool EnemyWandering::update(float dt, const LevelMap& level_map)
     {
         return true;
     }
+    if(_target.sqlength() == 0)
+    {
+        _target = level_map.findNearestCrossway(current_position, _direction);
+    }
     Vector2 last_position = current_position;
     Vector2 position_after_dt = current_position + _direction * dt;
-    setPosition(position_after_dt);
+    Vector2 direction_normalized = _direction.normalized();
+    Vector2 direction_to_target = (_target - position_after_dt).normalized();
+    if((direction_normalized + direction_to_target).sqlength() == 0)
+    {
+        setPosition(_target);
+        _direction = level_map.chooseFreeDirection(_target);
+        _target = level_map.findNearestCrossway(current_position, _direction);
+    }
+    else
+    {
+        setPosition(position_after_dt);
+    }
     if(level_map.getCollider().check(_collider))
     {
         Point point_at_position = level_map.getPointAtPosition(last_position);
         Vector2 position = {(point_at_position.x + 0.5f) * block_size, (point_at_position.y + 0.5f) * block_size};
         setPosition(position);
         _direction = level_map.chooseFreeDirection(current_position);
+        _target = level_map.findNearestCrossway(current_position, _direction);
     }
     return true;
 }

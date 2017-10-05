@@ -20,7 +20,7 @@ PointInfo::PointInfo(const Point& point)
 
 float PointInfo::calculateFScore(const PointInfo& end_point)
 {
-    h_score = (point - end_point.point).length();
+    h_score = (point - end_point.point).manhattanLength();
     f_score = g_score + h_score;
     return f_score;
 }
@@ -88,23 +88,21 @@ void PathFinder::findPath(std::deque<Point>& out, const Point& start_point, cons
                 registerPoint(neighbor);
             }
             PointInfo& neighbor_point_info = _points_infos.at(neighbor);
-            if(closed_set.find(neighbor) != closed_set.end())
+            if(closed_set.find(neighbor) == closed_set.end())
             {
-                continue;
+                if(open_set.find(neighbor) == open_set.end())
+                {
+                    open_set.insert(neighbor);
+                }
+                const PointInfo& current_point_info = _points_infos.at(current);
+                float tentative_g_score = current_point_info.g_score + (current - neighbor).manhattanLength();
+                if(tentative_g_score < neighbor_point_info.g_score)
+                {
+                    _came_from[neighbor] = current;
+                    neighbor_point_info.g_score = tentative_g_score;
+                    estimatePathCost(neighbor_point_info, end_point_info);
+                }
             }
-            if(open_set.find(neighbor) == open_set.end())
-            {
-                open_set.insert(neighbor);
-            }
-            const PointInfo& current_point_info = _points_infos.at(current);
-            float tentative_g_score = current_point_info.g_score + (current - neighbor).length();
-            if(tentative_g_score >= neighbor_point_info.g_score)
-            {
-                continue;
-            }
-            _came_from[neighbor] = current;
-            neighbor_point_info.g_score = tentative_g_score;
-            estimatePathCost(neighbor_point_info, end_point_info);
         }
     }
 }

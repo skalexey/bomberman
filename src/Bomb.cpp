@@ -42,17 +42,15 @@ void Bomb::render(SDL_Renderer* renderer) const
     SDL_RenderFillRect(renderer, &sdl_bomb);
 }
 
-bool Bomb::detonate()
+void Bomb::detonate()
 {
     if(_callback_to_do_on_detonated)
     {
-        bool result = _callback_to_do_on_detonated();
-        return result;
+        _callback_to_do_on_detonated();
     }
-    return true;
 }
 
-void Bomb::setOnDetonated(const std::function<bool()>& callback_to_do_on_detonated)
+void Bomb::setOnDetonated(const std::function<void()>& callback_to_do_on_detonated)
 {
     _callback_to_do_on_detonated = callback_to_do_on_detonated;
 }

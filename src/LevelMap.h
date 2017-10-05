@@ -54,12 +54,15 @@ public:
     void update(float dt);
     Vector2 chooseFreeDirection(const Vector2& start_position) const;
     Point getPointAtPosition(const Vector2& position) const;
+    Vector2 getPositionAtPoint(const Point& point) const;
     FieldBlock getBlockAtPoint(const Point& point) const;
     void addEnemy(const spEnemy& enemy);
     Point findRandomFreePoint();
     Point findRandomPoint(FieldBlock block);
     bool isPointPassable(const Point& point) const;
+    Vector2 findNearestCrossway(const Vector2& position, const Vector2& direction) const;
 private:
+    bool isCrosswayOrDeadend(const Vector2& position) const;
     void processCollisionsWithEnemies(const spBombFragment& fragment);
     void destroyFragmentAfterDelay(const spBombFragment& fragment);
     void generate();
