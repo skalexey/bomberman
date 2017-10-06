@@ -13,6 +13,8 @@
 #include "LevelMap.h"
 #include "Dispatcher.h"
 
+extern float block_size;
+
 Player* Player::_instance;
 
 Player::Player()
@@ -73,7 +75,7 @@ void Player::move(const Vector2& direction, float dt)
 {
     Vector2 rounded_direction = direction;
     rounded_direction.normalize();
-    rounded_direction *= default_speed;
+    rounded_direction *= block_size * 2.5f;
     rounded_direction *= dt;
     const Vector2& current_position = getPosition();
     Vector2 new_position = current_position + rounded_direction;

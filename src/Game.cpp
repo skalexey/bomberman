@@ -13,6 +13,8 @@
 
 Game* Game::_instance;
 
+extern float block_size;
+
 Game::Game()
 : _destroyed(false)
 , _bomb_power(3)
@@ -27,21 +29,21 @@ void Game::init()
     _level_map = spLevelMap(new LevelMap());
     _player->setPosition(1, 1);
     _player->getCollider().addCollider(&_level_map->getCollider());
-    spButton button_ew(new Button(Rect(360, 290, 100, 50), Color(255, 0, 0, 255), [=]()
+    spButton button_ew(new Button(Rect(block_size * 18, block_size * 14.5f, block_size * 5, block_size * 2.5), Color(255, 0, 0, 255), [=]()
                      {
                          Point random_free_position = _level_map->findRandomFreePoint();
                          spEnemyWandering enemy(new EnemyWandering(random_free_position));
                          _level_map->addEnemy(enemy);
                      }));
     _buttons.push_back(button_ew);
-    spButton button_ec(new Button(Rect(240, 290, 100, 50), Color(0, 0, 180, 255), [=]()
+    spButton button_ec(new Button(Rect(12 * block_size, block_size * 14.5f, block_size * 5, block_size * 2.5), Color(0, 0, 180, 255), [=]()
                      {
                          Point random_free_position = _level_map->findRandomFreePoint();
                          spEnemyChasing enemy(new EnemyChasing(random_free_position));
                          _level_map->addEnemy(enemy);
                      }));
     _buttons.push_back(button_ec);
-    spButton button_bomb(new Button(Rect(120, 290, 100, 50), Color(0, 0, 0, 255), [=]()
+    spButton button_bomb(new Button(Rect(6 * block_size, block_size * 14.5f, block_size * 5, block_size * 2.5), Color(0, 0, 0, 255), [=]()
                                    {
                                        spBomb bomb(new Bomb(_bomb_power));
                                        Dispatcher::instance().runAfter([=]()

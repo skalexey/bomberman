@@ -11,6 +11,8 @@
 #include "Utils.h"
 #include "Dispatcher.h"
 
+extern float block_size;
+
 LevelMap::LevelMap()
 : _level_size_x(0)
 , _level_size_y(0)
@@ -395,8 +397,11 @@ Vector2 LevelMap::findNearestCrossway(const Vector2& position, const Vector2& di
 
 void LevelMap::generate()
 {
-    _level_size_x = (int)SCREEN_WIDTH / block_size;
-    _level_size_y = (int)SCREEN_HEIGHT / block_size - 3; // field for controls
+    SDL_DisplayMode mode;
+    SDL_GetDisplayMode(0, 0, &mode);
+    
+    _level_size_x = (int)mode.w / block_size;
+    _level_size_y = (int)mode.h / block_size - 3; // field for controls
     for(int y = 0; y < _level_size_y; y++)
     {
         std::vector<FieldBlock> field_row(_level_size_x, BLOCK_NONE);

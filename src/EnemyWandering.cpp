@@ -9,6 +9,8 @@
 #include "EnemyWandering.h"
 #include "LevelMap.h"
 
+extern float block_size;
+
 EnemyWandering::EnemyWandering(const Point& start_point)
 : Enemy(start_point)
 {

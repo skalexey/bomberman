@@ -9,6 +9,8 @@
 #include "EnemyChasing.h"
 #include "Player.h"
 
+extern float block_size;
+
 EnemyChasing::EnemyChasing(const Point& start_point)
 : Enemy(start_point)
 {
@@ -68,13 +70,13 @@ bool EnemyChasing::update(float delta_t, const LevelMap& level_map)
         }
         else
         {
-            setPosition(position + direction_normalized * dt * 20);
+            setPosition(position + direction_normalized * dt * block_size);
         }
     }
     else if(_path.size() == 1)
     {
         Vector2 direction = player.getPosition() - position;
-        setPosition(position + direction * dt);
+        setPosition(position + direction.normalized() * block_size * dt);
         if(direction.length() > block_size)
         {
             _path.clear();

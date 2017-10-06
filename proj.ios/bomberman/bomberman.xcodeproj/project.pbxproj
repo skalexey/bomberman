@@ -408,6 +408,7 @@
 				TargetAttributes = {
 					79677D231F7BEB7E006F6F19 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = V9WW48M88L;
 						ProvisioningStyle = Automatic;
 					};
 					79677D3C1F7BEB7F006F6F19 = {
@@ -654,6 +655,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = V9WW48M88L;
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../SDL/include\"",
 					"\"$(SRCROOT)/../../src\"",
@@ -669,6 +671,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = V9WW48M88L;
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../../SDL/include\"",
 					"\"$(SRCROOT)/../../src\"",

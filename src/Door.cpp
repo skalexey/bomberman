@@ -7,7 +7,8 @@
 //
 
 #include "Door.h"
-#include "LevelMap.h"
+
+extern float block_size;
 
 Door::Door()
 : _collider(block_size / 2)

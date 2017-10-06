@@ -7,7 +7,8 @@
 //
 
 #include "BombFragment.h"
-#include "LevelMap.h"
+
+extern float block_size;
 
 BombFragment::BombFragment(int field_position_x, int field_position_y)
 : _field_position(field_position_x, field_position_y)

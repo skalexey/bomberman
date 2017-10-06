@@ -20,8 +20,6 @@
 #include "Door.h"
 #include "FieldBlock.h"
 
-const float block_size = 20.0f;
-
 class LevelMap;
 
 enum CheckCollisionResult

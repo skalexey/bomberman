@@ -9,6 +9,8 @@
 #include "Enemy.h"
 #include "LevelMap.h"
 
+extern float block_size;
+
 Enemy::Enemy(const Point& start_position)
 : _collider(0.9f * block_size / 2)
 , _is_dead(false)

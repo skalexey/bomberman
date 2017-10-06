@@ -7,7 +7,8 @@
 //
 
 #include "Key.h"
-#include "LevelMap.h"
+
+extern float block_size;
 
 Key::Key()
 : _collider(block_size / 2)

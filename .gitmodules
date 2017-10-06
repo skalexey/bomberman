@@ -1,0 +1,3 @@
+[submodule "SDL"]
+path = proj.android/jni/SDL
+url = https://github.com/oxygine/SDL.git

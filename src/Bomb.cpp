@@ -7,7 +7,8 @@
 //
 
 #include "Bomb.h"
-#include "LevelMap.h"
+
+extern float block_size;
 
 Bomb::Bomb(int power)
 : _power(power)

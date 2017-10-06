@@ -9,6 +9,8 @@
 #include "LevelMap.h"
 #include "LevelMapCollider.h"
 
+extern float block_size;
+
 LevelMapCollider::LevelMapCollider(LevelMap const* level_map, FieldBlock block_type)
 : Collider()
 , _level_map(nullptr)
