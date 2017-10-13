@@ -78,6 +78,7 @@ void LevelMap::update(float dt)
         if(_key->getCollider().check(player_collider))
         {
             player.setKeyFound();
+            _key = nullptr;
         }
     }
     if(_door)
