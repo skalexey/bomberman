@@ -34,13 +34,6 @@ bool CircleCollider::check(const CircleCollider& collider2) const
     Vector2 distance = collider2.getPosition() - _position;
     float collider2_size = collider2.getSize();
     return distance.sqlength() <= (collider2_size + _size) * (collider2_size + _size);
-
-    LevelMapCollider const* collider2_map = dynamic_cast<LevelMapCollider const*>(&collider2);
-    if(collider2_map)
-    {
-        return collider2_map->check(*this);
-    }
-    return false;
 }
 
 bool CircleCollider::check(const LevelMapCollider& collider2) const
