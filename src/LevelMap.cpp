@@ -74,7 +74,7 @@ void LevelMap::update(float dt)
     }
     if(_key)
     {
-        const Collider& player_collider = player.getCollider();
+        const CircleCollider& player_collider = player.getCollider();
         if(_key->getCollider().check(player_collider))
         {
             player.setKeyFound();
@@ -194,7 +194,6 @@ void LevelMap::processCollisionsWithEnemies(const spBombFragment& fragment)
 
 bool LevelMap::affect(const Bomb& bomb)
 {
-    Vector2 bomb_position = bomb.getPosition();
     std::vector<spBombFragment> bomb_fragments;
     generateBombFragments(bomb, bomb_fragments);
     for(const spBombFragment& fragment : bomb_fragments)

@@ -16,16 +16,18 @@
 #include "CircleCollider.h"
 #include "Bomb.h"
 
+class LevelMapCollider;
+
 class Player
 {
 public:
-    Player();
+    Player(const LevelMapCollider* collider);
     void render(SDL_Renderer* renderer) const;
     void setPosition(float field_x, float field_y);
-    bool setPosition(const Vector2& new_position);
+    void setPosition(const Vector2& new_position);
     const Vector2& getPosition() const;
     void move(const Vector2& direction, float dt);
-    Collider& getCollider();
+    CircleCollider& getCollider();
     static Player& getInstance();
     void setKeyFound();
     bool haveKey();
@@ -35,6 +37,7 @@ private:
     const float default_speed = 50.0f;
     CircleCollider _collider;
     bool _key_found;
+    const LevelMapCollider* _level_map_collider;
 };
 typedef std::shared_ptr<Player> spPlayer;
 #endif /* Player_h */

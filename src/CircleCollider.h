@@ -11,11 +11,14 @@
 
 #include "Collider.h"
 
+class LevelMapCollider;
+
 class CircleCollider : public Collider
 {
 public:
     CircleCollider(float size);
-    bool check(const Collider& collider2) const;
+    bool check(const CircleCollider& collider2) const;
+    bool check(const LevelMapCollider& collider2) const;
     float getSize() const;
     bool containPoint(int x, int y) const;
 private:

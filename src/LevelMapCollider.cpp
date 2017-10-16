@@ -40,7 +40,20 @@ void LevelMapCollider::init(LevelMap const* level_map, FieldBlock block_type)
     }
 }
 
-bool LevelMapCollider::check(const Collider& collider2) const
+bool LevelMapCollider::check(const CircleCollider& collider2) const
+{
+    for(const auto& it : _blocks_colliders)
+    {
+        const BoxCollider& box_collider = it.second;
+        if(box_collider.check(collider2))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool LevelMapCollider::check(const BoxCollider& collider2) const
 {
     for(const auto& it : _blocks_colliders)
     {

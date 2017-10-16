@@ -16,7 +16,7 @@ Door::Door()
     
 }
 
-const Collider& Door::getCollider() const
+const CircleCollider& Door::getCollider() const
 {
     return _collider;
 }

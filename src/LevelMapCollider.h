@@ -22,7 +22,8 @@ class LevelMapCollider : public Collider
 {
 public:
     LevelMapCollider(LevelMap const* level_map, FieldBlock block_type = BLOCK_NONE);
-    bool check(const Collider& collider2) const;
+    bool check(const CircleCollider& collider2) const;
+    bool check(const BoxCollider& collider2) const;
     void removeBlockCollider(FieldBlock* block);
 private:
     void init(LevelMap const* level_map, FieldBlock block_type);

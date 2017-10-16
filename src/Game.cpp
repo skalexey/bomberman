@@ -25,10 +25,9 @@ Game::Game()
 
 void Game::init()
 {
-    _player = spPlayer(new Player());
     _level_map = spLevelMap(new LevelMap());
+    _player = spPlayer(new Player(&_level_map->getCollider()));
     _player->setPosition(1, 1);
-    _player->getCollider().addCollider(&_level_map->getCollider());
     spButton button_ew(new Button(Rect(block_size * 18, block_size * 14.5f, block_size * 5, block_size * 2.5), Color(255, 0, 0, 255), [=]()
                      {
                          Point random_free_position = _level_map->findRandomFreePoint();

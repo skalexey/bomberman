@@ -16,7 +16,7 @@ class Door
 {
 public:
     Door();
-    const Collider& getCollider() const;
+    const CircleCollider& getCollider() const;
     void render(SDL_Renderer* renderer) const;
     const Vector2& getPosition() const;
     void setPosition(const Point& point);

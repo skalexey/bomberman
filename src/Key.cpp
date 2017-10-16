@@ -16,7 +16,7 @@ Key::Key()
     
 }
 
-const Collider& Key::getCollider() const
+const CircleCollider& Key::getCollider() const
 {
     return _collider;
 }
